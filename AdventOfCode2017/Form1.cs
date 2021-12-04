@@ -32,7 +32,7 @@ namespace AdventOfCode2017
             
             for (int i = 0; i < 25; i++)
             {
-                var className = $"AdventOfCode2021.Days.Day{i + 1}";
+                var className = $"AdventOfCode2017.Days.Day{i + 1}";
                 var posX = i / AmountPerCol * 3 * (ElementWidth + 10);
                 var button = new Button();
                 Controls.Add(button);

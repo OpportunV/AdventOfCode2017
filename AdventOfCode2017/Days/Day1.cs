@@ -10,16 +10,35 @@ namespace AdventOfCode2017.Days
         
         public static object Part1()
         {
-            var lines = Helper.GetInput(_inputPath);
+            var lines = Helper.GetInput(_inputPath)[0];
+            
+            var ans = 0;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i] == lines[(i + 1) % lines.Length])
+                {
+                    ans += int.Parse(lines[i].ToString());
+                }
+            }
 
-            return -1;
+            return ans;
         }
         
         public static object Part2()
         {
-            var lines = Helper.GetInput(_inputPath);
+            var lines = Helper.GetInput(_inputPath)[0];
 
-            return -1;
+            var length = lines.Length;
+            var ans = 0;
+            for (int i = 0; i < length; i++)
+            {
+                if (lines[i] == lines[(i + length / 2) % length])
+                {
+                    ans += int.Parse(lines[i].ToString());
+                }
+            }
+
+            return ans;
         }
     }
 }
