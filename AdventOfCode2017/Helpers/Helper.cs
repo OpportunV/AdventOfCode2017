@@ -88,4 +88,15 @@ namespace AdventOfCode2017.Helpers
         }
     }
     
+    public enum Direction
+    {
+        LeftDown,
+        Left,
+        LeftUp,
+        Down,
+        Up,
+        RightDown,
+        Right,
+        RightUp,
+    }
 }

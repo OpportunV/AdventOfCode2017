@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using AdventOfCode2017.Helpers;
 
 namespace AdventOfCode2017.Days
@@ -12,14 +14,28 @@ namespace AdventOfCode2017.Days
         {
             var lines = Helper.GetInput(_inputPath);
 
-            return -1;
+            return lines.Count(line =>
+            {
+                var split = line.Split(' ');
+                return split.Distinct().Count() == split.Length;
+            });
         }
         
         public static object Part2()
         {
             var lines = Helper.GetInput(_inputPath);
-            
-            return -1;
+
+            return lines.Count(line => line.Split(' ').DoubleIteration().All(Validate));
+        }
+        
+        private static bool Validate((string, string) pair)
+        {
+            var (first, second) = pair;
+            var f = first.ToCharArray();
+            var s = second.ToCharArray();
+            Array.Sort(f);
+            Array.Sort(s);
+            return string.Join("", f) != string.Join("", s);
         }
     }
 }
