@@ -10,6 +10,7 @@ namespace AdventOfCode2017.Helpers
         {
             return string.Concat(s.OrderBy(c => c));
         }
+
         public static string Reversed(this string str)
         {
             var chars = str.ToCharArray();
