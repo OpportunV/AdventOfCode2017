@@ -1,4 +1,4 @@
-using AdventOfCode2017.Helpers;
+using Common.Extensions;
 
 namespace AdventOfCode2017.Days;
 
@@ -19,7 +19,7 @@ public class Day4 : Day
     {
         var lines = GetInput();
 
-        return lines.Count(line => line.Split(' ').DoubleIteration().All(Validate));
+        return lines.Count(line => line.Split().DoubleIteration().All(Validate));
     }
 
     private bool Validate((string, string) pair)
