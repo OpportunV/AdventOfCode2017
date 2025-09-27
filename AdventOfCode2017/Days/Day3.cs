@@ -1,17 +1,12 @@
-﻿using System.Reflection;
-using AdventOfCode2017.Helpers;
+﻿using Common.Models;
 
 namespace AdventOfCode2017.Days;
 
-public class Day3
+public class Day3 : Day
 {
-    private readonly string _inputPath = Path.Combine(
-        "input",
-        $"{MethodBase.GetCurrentMethod()!.DeclaringType!.Name}.txt");
-
-    public object Part1()
+    public override object Part1()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
         var target = int.Parse(lines[0]);
 
         var squareAbove = 0;
@@ -29,41 +24,41 @@ public class Day3
         return dist;
     }
 
-    public object Part2()
+    public override object Part2()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
         var target = int.Parse(lines[0]);
 
-        var grid = new Dictionary<(int, int), int> { { (0, 0), 1 }, { (1, 0), 1 } };
+        var grid = new Dictionary<GridPos2d, int> { { GridPos2d.Zero, 1 }, { GridPos2d.Down, 1 } };
 
-        var pos = (x: 1, y: 1);
+        var pos = new GridPos2d(1, 1);
         var last = 0;
-        var direction = Direction.Up;
+        var direction = GridPos2d.Right;
         while (last < target)
         {
-            last = Helper.Adjacent(pos).Sum(adjPos => grid.GetOrDefault(adjPos, 0));
+            last = pos.AdjacentAll().Sum(adjPos => grid.GetValueOrDefault(adjPos, 0));
             grid[pos] = last;
-            if (pos.x == pos.y && pos.x > 0)
+            if (pos.Row == pos.Col && pos.Row > 0)
             {
-                direction = Direction.Left;
+                direction = GridPos2d.Up;
             }
 
-            if (pos.x == -pos.y && pos.x < 0)
+            if (pos.Row == -pos.Col && pos.Row < 0)
             {
-                direction = Direction.Down;
+                direction = GridPos2d.Left;
             }
 
-            if (pos.x == pos.y && pos.x < 0)
+            if (pos.Row == pos.Col && pos.Row < 0)
             {
-                direction = Direction.Right;
+                direction = GridPos2d.Down;
             }
 
-            if (pos.x - 1 == -pos.y && pos.x > 0)
+            if (pos.Row - 1 == -pos.Col && pos.Row > 0)
             {
-                direction = Direction.Up;
+                direction = GridPos2d.Right;
             }
 
-            pos = pos.Add(Helper.Directions[(int)direction]);
+            pos += direction;
         }
 
         return last;

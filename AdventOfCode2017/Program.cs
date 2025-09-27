@@ -1,31 +1,28 @@
 ﻿using System.Diagnostics;
+using AdventOfCode2017.Days;
 
-for (var i = 1; i <= 25; i++)
+for (var dayNumber = 1; dayNumber <= 25; dayNumber++)
 {
-    var start = Stopwatch.GetTimestamp();
-    var (part1, part2) = GetSolutions($"AdventOfCode2017.Days.Day{i}");
-    Console.WriteLine($"Day {i} took {Stopwatch.GetElapsedTime(start).TotalMilliseconds} milliseconds");
-    Console.WriteLine($"part1: {part1}");
-    Console.WriteLine($"part2: {part2}");
-    Console.WriteLine();
+    RunDay(dayNumber);
 }
 
 return;
 
-
-(string, string) GetSolutions(string className)
+void RunDay(int dayNumber)
 {
-    var instance = Activator.CreateInstance(Type.GetType(className)!);
-
-    var ans1 = Type.GetType(className)?
-        .GetMethod("Part1")?
-        .Invoke(instance, [])!.ToString()!;
-
-
-    var ans2 = Type.GetType(className)?
-        .GetMethod("Part2")?
-        .Invoke(instance, [])!.ToString()!;
+    var day = GetDay(dayNumber);
+    Console.WriteLine($"Day {dayNumber}");
+    var start = Stopwatch.GetTimestamp();
+    Console.WriteLine($"part1: {day.Part1()}\t\ttook {Stopwatch.GetElapsedTime(start).TotalMilliseconds} milliseconds");
+    start = Stopwatch.GetTimestamp();
+    Console.WriteLine($"part2: {day.Part2()}\t\ttook {Stopwatch.GetElapsedTime(start).TotalMilliseconds} milliseconds");
+    Console.WriteLine();
+}
 
 
-    return (ans1, ans2);
+Day GetDay(int day)
+{
+    var instance = (Day)Activator.CreateInstance(Type.GetType($"AdventOfCode2017.Days.Day{day}")!)!;
+
+    return instance;
 }

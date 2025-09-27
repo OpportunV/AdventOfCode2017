@@ -1,16 +1,10 @@
-using System.Reflection;
-using AdventOfCode2017.Helpers;
-
 namespace AdventOfCode2017.Days;
 
-public class Day6
+public class Day6 : Day
 {
-    private readonly string _inputPath =
-        Path.Combine("input", $"{MethodBase.GetCurrentMethod()!.DeclaringType!.Name}.txt");
-
-    public object Part1()
+    public override object Part1()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
         var banks = lines[0].Split().Select(int.Parse).ToList();
 
         var counter = GetCyclesAmount(ref banks);
@@ -18,9 +12,9 @@ public class Day6
         return counter;
     }
 
-    public object Part2()
+    public override object Part2()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
         var banks = lines[0].Split().Select(int.Parse).ToList();
 
         GetCyclesAmount(ref banks);

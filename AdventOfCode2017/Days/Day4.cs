@@ -1,17 +1,12 @@
-using System.Reflection;
 using AdventOfCode2017.Helpers;
 
 namespace AdventOfCode2017.Days;
 
-public class Day4
+public class Day4 : Day
 {
-    private readonly string _inputPath = Path.Combine(
-        "input",
-        $"{MethodBase.GetCurrentMethod()!.DeclaringType!.Name}.txt");
-
-    public object Part1()
+    public override object Part1()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
 
         return lines.Count(line =>
         {
@@ -20,9 +15,9 @@ public class Day4
         });
     }
 
-    public object Part2()
+    public override object Part2()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
 
         return lines.Count(line => line.Split(' ').DoubleIteration().All(Validate));
     }

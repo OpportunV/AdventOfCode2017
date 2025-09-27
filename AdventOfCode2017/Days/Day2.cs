@@ -1,18 +1,12 @@
-﻿using System.Reflection;
-using System.Text.RegularExpressions;
-using AdventOfCode2017.Helpers;
+﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2017.Days;
 
-public class Day2
+public class Day2 : Day
 {
-    private readonly string _inputPath = Path.Combine(
-        "input",
-        $"{MethodBase.GetCurrentMethod()!.DeclaringType!.Name}.txt");
-
-    public object Part1()
+    public override object Part1()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
 
         var ans = 0;
         foreach (var line in lines)
@@ -25,9 +19,9 @@ public class Day2
         return ans;
     }
 
-    public object Part2()
+    public override object Part2()
     {
-        var lines = Helper.GetInput(_inputPath);
+        var lines = GetInput();
 
         return lines.Select(line => Regex.Matches(line, @"\d+")).Select(GetDivisionResult).Sum();
     }
