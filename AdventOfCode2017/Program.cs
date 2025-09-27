@@ -1,24 +1,31 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Diagnostics;
 
-namespace AdventOfCode2017
+for (var i = 1; i <= 25; i++)
 {
-    internal static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        private static void Main()
-        {
-            AttachConsole(-1);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-        }
-        
-        [DllImport("kernel32.dll")]
-        private static extern bool AttachConsole(int dwProcessId);
-    }
+    var start = Stopwatch.GetTimestamp();
+    var (part1, part2) = GetSolutions($"AdventOfCode2017.Days.Day{i}");
+    Console.WriteLine($"Day {i} took {Stopwatch.GetElapsedTime(start).TotalMilliseconds} milliseconds");
+    Console.WriteLine($"part1: {part1}");
+    Console.WriteLine($"part2: {part2}");
+    Console.WriteLine();
+}
+
+return;
+
+
+(string, string) GetSolutions(string className)
+{
+    var instance = Activator.CreateInstance(Type.GetType(className)!);
+
+    var ans1 = Type.GetType(className)?
+        .GetMethod("Part1")?
+        .Invoke(instance, [])!.ToString()!;
+
+
+    var ans2 = Type.GetType(className)?
+        .GetMethod("Part2")?
+        .Invoke(instance, [])!.ToString()!;
+
+
+    return (ans1, ans2);
 }
