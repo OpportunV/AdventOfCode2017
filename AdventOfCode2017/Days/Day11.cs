@@ -1,26 +1,40 @@
-using System.IO;
-using AdventOfCode2017.Helpers;
+using Common.Models;
 
-namespace AdventOfCode2017.Days
+namespace AdventOfCode2017.Days;
+
+public class Day11 : Day
 {
-    public static class Day11
+    private readonly Dictionary<string, HexGridPos> _movements = new()
     {
-        private static readonly string _inputPath = Path.Combine("input",
-            $"{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType?.Name}.txt");
-        
-        public static object Part1()
-        {
-            var lines = Helper.GetInput(_inputPath);
+        { "n", HexGridPos.Up },
+        { "ne", HexGridPos.RightUp },
+        { "se", HexGridPos.RightDown },
+        { "s", HexGridPos.Down },
+        { "sw", HexGridPos.LeftDown },
+        { "nw", HexGridPos.LeftUp }
+    };
 
-            return -1;
-        }
-        
-        public static object Part2()
+    public override object Part1()
+    {
+        var movements = GetInput()[0].Split(",");
+
+        var pos = movements.Aggregate(HexGridPos.Zero, (current, movement) => current + _movements[movement]);
+
+        return pos.Length;
+    }
+
+    public override object Part2()
+    {
+        var movements = GetInput()[0].Split(",");
+
+        var pos = HexGridPos.Zero;
+        var res = int.MinValue;
+        foreach (var movement in movements)
         {
-            var lines = Helper.GetInput(_inputPath);
-            
-            return -1;
+            pos += _movements[movement];
+            res = Math.Max(res, pos.Length);
         }
+
+        return res;
     }
 }
-
