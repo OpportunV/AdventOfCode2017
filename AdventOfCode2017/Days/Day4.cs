@@ -10,7 +10,7 @@ public class Day4 : Day
 
         return lines.Count(line =>
         {
-            var split = line.Split(' ');
+            var split = line.Split();
             return split.Distinct().Count() == split.Length;
         });
     }
@@ -19,7 +19,11 @@ public class Day4 : Day
     {
         var lines = GetInput();
 
-        return lines.Count(line => line.Split().DoubleIteration().All(Validate));
+        return lines
+            .Count(line => line
+                .Split()
+                .DoubleIteration()
+                .All(Validate));
     }
 
     private bool Validate((string, string) pair)

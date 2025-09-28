@@ -1,3 +1,5 @@
+using Common.Extensions;
+
 namespace AdventOfCode2017.Days;
 
 public class Day6 : Day
@@ -5,7 +7,7 @@ public class Day6 : Day
     public override object Part1()
     {
         var lines = GetInput();
-        var banks = lines[0].Split().Select(int.Parse).ToList();
+        var banks = lines[0].GetNumbers<int>().ToList();
 
         var counter = GetCyclesAmount(ref banks);
 
@@ -15,7 +17,7 @@ public class Day6 : Day
     public override object Part2()
     {
         var lines = GetInput();
-        var banks = lines[0].Split().Select(int.Parse).ToList();
+        var banks = lines[0].GetNumbers<int>().ToList();
 
         GetCyclesAmount(ref banks);
         var counter = GetCyclesAmount(ref banks);

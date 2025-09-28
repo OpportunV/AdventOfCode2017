@@ -1,3 +1,5 @@
+using Common.Extensions;
+
 namespace AdventOfCode2017.Days;
 
 public class Day5 : Day
@@ -5,7 +7,7 @@ public class Day5 : Day
     public override object Part1()
     {
         var lines = GetInput();
-        var instructions = lines.Select(int.Parse).ToArray();
+        var instructions = lines.Select(line => line.GetNumbers<int>()[0]).ToArray();
         var stepCounter = 0;
         var currentIndex = 0;
         while (currentIndex < instructions.Length && currentIndex >= 0)
@@ -23,7 +25,7 @@ public class Day5 : Day
     {
         var lines = GetInput();
 
-        var instructions = lines.Select(int.Parse).ToArray();
+        var instructions = lines.Select(line => line.GetNumbers<int>()[0]).ToArray();
         var stepCounter = 0;
         var currentIndex = 0;
         while (currentIndex < instructions.Length && currentIndex >= 0)
