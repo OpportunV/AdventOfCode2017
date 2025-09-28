@@ -1,26 +1,81 @@
-using System.IO;
-using AdventOfCode2017.Helpers;
+namespace AdventOfCode2017.Days;
 
-namespace AdventOfCode2017.Days
+public class Day9 : Day
 {
-    public static class Day9
+    public override object Part1()
     {
-        private static readonly string _inputPath = Path.Combine("input",
-            $"{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType?.Name}.txt");
-        
-        public static object Part1()
+        var line = GetInput()[0];
+        var total = 0;
+        var cancelNext = false;
+        var garbageZone = false;
+        var stack = new Stack<char>();
+        foreach (var chr in line)
         {
-            var lines = Helper.GetInput(_inputPath);
+            if (cancelNext)
+            {
+                cancelNext = false;
+                continue;
+            }
 
-            return -1;
+            switch (chr)
+            {
+                case '!':
+                    cancelNext = true;
+                    break;
+                case '<' when !garbageZone:
+                    garbageZone = true;
+                    break;
+                case '>' when garbageZone:
+                    garbageZone = false;
+                    break;
+                case '{' when !garbageZone:
+                    stack.Push(chr);
+                    break;
+                case '}' when !garbageZone:
+                    total += stack.Count;
+                    stack.Pop();
+                    break;
+            }
         }
-        
-        public static object Part2()
+
+        return total;
+    }
+
+    public override object Part2()
+    {
+        var line = GetInput()[0];
+        var total = 0;
+        var cancelNext = false;
+        var garbageZone = false;
+        foreach (var chr in line)
         {
-            var lines = Helper.GetInput(_inputPath);
-            
-            return -1;
+            if (cancelNext)
+            {
+                cancelNext = false;
+                continue;
+            }
+
+            switch (chr)
+            {
+                case '!':
+                    cancelNext = true;
+                    break;
+                case '<' when !garbageZone:
+                    garbageZone = true;
+                    break;
+                case '>' when garbageZone:
+                    garbageZone = false;
+                    break;
+                default:
+                    if (garbageZone)
+                    {
+                        total += 1;
+                    }
+
+                    break;
+            }
         }
+
+        return total;
     }
 }
-
