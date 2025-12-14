@@ -2,14 +2,24 @@
 
 public abstract class Day
 {
+    private readonly string _inputPath;
+
+    public Day()
+    {
+        _inputPath = Path.Combine("input", $"{GetType().Name}.txt");
+    }
+
     public abstract object Part1();
 
     public abstract object Part2();
 
     protected string[] GetInput()
     {
-        var path = Path.Combine("input", $"{GetType().Name}.txt");
-        var tmp = File.ReadLines(Path.Combine(path));
-        return tmp as string[] ?? tmp.ToArray();
+        return File.ReadAllLines(_inputPath);
+    }
+
+    protected string GetInputRaw()
+    {
+        return File.ReadAllText(_inputPath);
     }
 }
