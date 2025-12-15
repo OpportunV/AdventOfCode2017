@@ -9,6 +9,7 @@ public class Day15 : Day
     private const long Mod = 2147483647;
     private const int Part1Iterations = 40_000_000;
     private const int Part2Iterations = 5_000_000;
+    private const long RelevantBits = 0xFFFF;
 
     public override object Part1()
     {
@@ -23,10 +24,7 @@ public class Day15 : Day
             var nextB = generators[1] * GeneratorB % Mod;
             generators[0] = nextA;
             generators[1] = nextB;
-            var bitsA = Convert.ToString(nextA, 2);
-            var bitsB = Convert.ToString(nextB, 2);
-
-            if (AreEqual(bitsA, bitsB))
+            if ((nextA & RelevantBits) == (nextB & RelevantBits))
             {
                 ans++;
             }
@@ -60,28 +58,12 @@ public class Day15 : Day
                 generators[1] = nextB;
             }
 
-            var bitsA = Convert.ToString(nextA, 2);
-            var bitsB = Convert.ToString(nextB, 2);
-
-            if (AreEqual(bitsA, bitsB))
+            if ((nextA & RelevantBits) == (nextB & RelevantBits))
             {
                 ans++;
             }
         }
 
         return ans;
-    }
-
-    private static bool AreEqual(string a, string b)
-    {
-        for (var i = 1; i <= 16; i++)
-        {
-            if (a[^i] != b[^i])
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
